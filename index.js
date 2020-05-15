@@ -3,7 +3,13 @@ const app = express()
 const morgan = require('morgan')
 
 app.use(express.json())
-app.use(morgan('tiny'))
+
+morgan.token('body', function getBody(request) {
+    return JSON.stringify(request.body)
+})
+
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
 const generateId = () => {
     const rndId =  Math.floor(Math.random() * 1000000)
