@@ -3,6 +3,10 @@ const app = express()
 
 app.use(express.json())
 
+const generateId = () => {
+    const rndId =  Math.floor(Math.random() * 1000000)
+    return rndId
+}
 
 let persons = [
     {
@@ -47,6 +51,24 @@ app.get('/info', (request, response) => {
         `<h1>phonebook has info for ${persons.length} people</h1>`
             + `<h2>${Date()}</h2>`)
     )
+})
+
+app.post('/api/persons/', (request, response) => {
+    const body = request.body
+    console.log(body)
+
+    if(!body.name || !body.number){
+        return response.status(400).json({error: 'content missing'})
+    }
+
+    const person = {
+        name: body.name,
+        number: body.number,
+        id: generateId()
+    }
+    persons = persons.concat(person)
+
+    response.json(persons)
 })
 
 app.delete('/api/persons/:id', (request, response) => {
