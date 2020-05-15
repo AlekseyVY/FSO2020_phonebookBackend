@@ -8,6 +8,11 @@ const generateId = () => {
     return rndId
 }
 
+const findName = (name) => {
+    const filterName = persons.find(person => person.name === name)
+    return !(filterName);
+}
+
 let persons = [
     {
         name: "Arto Helias",
@@ -59,6 +64,9 @@ app.post('/api/persons/', (request, response) => {
 
     if(!body.name || !body.number){
         return response.status(400).json({error: 'content missing'})
+    }
+    if(findName(body.name)){
+        return response.status(400).json({error: 'name must be unique'})
     }
 
     const person = {
