@@ -1,0 +1,8 @@
+{
+  "short_name": "Phonebook",
+  "name": "FullStackOpen_2020 Phonebook_project",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
